@@ -1,0 +1,7 @@
+composer require laravel/ui: comando para agregar componentes soprtados por laravel.
+    -php artisan ui <nombre paquete>: este comando nos sirve para agregar modulos de laravel ui
+    -php artisan ui:auth. comando para agregar modulo de autenticacion.
+
+composer require laraveles/spanish: comando para descargar el modulo de traduccion de ingles a español el lenguaje de laravel.
+    -php artisan laraveles:install-lang: traduce el idioma de ingles a español
+    - config/app.php = debemos cambiar "'locale' => 'en'," a "es".
