@@ -1,3 +1,8 @@
 * php artisan migrate: comando para ejecutar todas las migraciones.
 
 * php artisan migrate:rollback: para eliminar todas las migraciones.
+
+* php artisan make:seeder: creacion de seeder
+    db:seed: ejecucion del seeder+-
+
+* php artisan storage:link: nos permite formar un vinculo en la carpeta storage con la publica para que se puedan apreciar las imagenes en el navegador.

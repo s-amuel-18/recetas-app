@@ -1,0 +1,11 @@
+## TIPOS DE RELACIONES ##
+
+// esto por la primera tabla
+1:1 => hasOne
+1:Muchos => hasMany
+Muchos:Muchos => belognsToMany
+
+// esto por la segunda tabla
+1:1 => belognsTo
+1:Muchos => belognsTo
+Muchos:Muchos => belognsToMany

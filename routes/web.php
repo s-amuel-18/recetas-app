@@ -25,4 +25,4 @@ Route::post("/recetas/store", [RecetaController::class, "store"])->name("receta.
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [RecetaController::class, 'index'])->name('home');
