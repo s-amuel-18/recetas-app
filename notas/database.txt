@@ -6,3 +6,6 @@
     db:seed: ejecucion del seeder+-
 
 * php artisan storage:link: nos permite formar un vinculo en la carpeta storage con la publica para que se puedan apreciar las imagenes en el navegador.
+
+* php artisan make:policy <NombrePolicy> -m <modelo>: esto nos permite crear un "policy" este nos permitira autorizar acciones.
+    - para configurar el "policy" nos dirigimos a app/policies/<nombre del policy>

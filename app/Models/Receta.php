@@ -19,6 +19,10 @@ class Receta extends Model
 
     public function categoria()
     {
-        return $this->belongsTo(Categoria_receta::class);
+        return $this->belongsTo(Categoria_receta::class, "categoria_id");
+    }
+    public function autor()
+    {
+        return $this->belongsTo(User::class, "user_id");
     }
 }

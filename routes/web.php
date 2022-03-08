@@ -19,9 +19,17 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+// Recetas
 Route::get("/recetas", [RecetaController::class, "index"])->name("receta.index");
-Route::get("/recetas/crear", [RecetaController::class, "create"])->name("receta.crear");
+Route::get("/recetas/create", [RecetaController::class, "create"])->name("receta.crear");
+Route::get("/recetas/show/{receta}", [RecetaController::class, "show"])->name("receta.show");
+Route::get("/recetas/{receta}/edit", [RecetaController::class, "edit"])->name("receta.edit");
+
 Route::post("/recetas/store", [RecetaController::class, "store"])->name("receta.store");
+
+Route::put("/recetas/{receta}/update", [RecetaController::class, "update"])->name("receta.update");
+
+Route::delete("/recetas/{receta}/delete", [RecetaController::class, "destroy"])->name("receta.delete");
 
 Auth::routes();
 

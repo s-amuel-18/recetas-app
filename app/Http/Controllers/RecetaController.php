@@ -7,6 +7,7 @@ use App\Models\Receta;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 
 class RecetaController extends Controller
@@ -14,7 +15,7 @@ class RecetaController extends Controller
 
     public function __construct()
     {
-     $this->middleware("auth");
+     $this->middleware("auth", ["except" => "show"]);
     }
     /**
      * Display a listing of the resource.
@@ -68,7 +69,7 @@ class RecetaController extends Controller
             "categoria" => "required",
             "ingredientes" => "required",
             "preparacion" => "required",
-            // "imagen" => "required|image|size:1000",
+            "imagen" => "required|image|max:1000",
         ]);
 
         $ruta_image = $request["imagen"]->store("uploads-recetas", "public");
@@ -103,7 +104,12 @@ class RecetaController extends Controller
      */
     public function show(Receta $receta)
     {
-        //
+        $data["receta"] = $receta;
+
+        // dd(env("APP_URL"));
+
+
+        return  view("recetas.show", $data);
     }
 
     /**
@@ -114,7 +120,14 @@ class RecetaController extends Controller
      */
     public function edit(Receta $receta)
     {
-        //
+
+        $data["receta"] = $receta;
+
+        $categorias = Categoria_receta::all();
+        $data["categorias"] = $categorias;
+
+        return view("recetas.edit", $data);
+
     }
 
     /**
@@ -126,7 +139,35 @@ class RecetaController extends Controller
      */
     public function update(Request $request, Receta $receta)
     {
-        //
+        $this->authorize("update", $receta);
+
+        $form_data = request()->validate([
+            "titulo" => "required",
+            "categoria" => "required",
+            "ingredientes" => "required",
+            "preparacion" => "required",
+            // "imagen" => "required|image|size:1000",
+        ]);
+
+        if( request("imagen") ) {
+            $ruta_image = $request["imagen"]->store("uploads-recetas", "public");
+
+
+            $img = Image::make( public_path( "storage/{$ruta_image}" ) )->fit(700, 400);
+            $img->save();
+
+            unlink( public_path( "storage/{$receta->imagen}" ) );
+            $receta->imagen = $ruta_image;
+        }
+
+        $receta->titulo = $form_data["titulo"];
+        $receta->categoria_id = $form_data["categoria"];
+        $receta->ingredientes = $form_data["ingredientes"];
+        $receta->preparacion = $form_data["preparacion"];
+
+        $receta->save();
+
+        return redirect()->route("receta.show", ["receta" => $receta->id]);
     }
 
     /**
@@ -137,6 +178,10 @@ class RecetaController extends Controller
      */
     public function destroy(Receta $receta)
     {
-        //
+        $this->authorize("delete", $receta);
+
+        $receta->delete();
+
+        return redirect()->route("receta.index");
     }
 }
