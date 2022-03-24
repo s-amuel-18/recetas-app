@@ -24,6 +24,18 @@ class User extends Authenticatable
         'pagina_web',
     ];
 
+
+    // forma de detectar un evento en el que se cree un usuario
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::created(function ($user) {
+            $user->perfil()->create();
+        });
+    }
+
+
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -46,5 +58,10 @@ class User extends Authenticatable
     public function recetas()
     {
         return $this->hasMany(Receta::class);
+    }
+
+    public function perfil()
+    {
+        return $this->hasOne(Perfil::class, "user_id");
     }
 }

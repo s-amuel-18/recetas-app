@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PerfilController;
 use App\Http\Controllers\RecetaController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -30,6 +31,14 @@ Route::post("/recetas/store", [RecetaController::class, "store"])->name("receta.
 Route::put("/recetas/{receta}/update", [RecetaController::class, "update"])->name("receta.update");
 
 Route::delete("/recetas/{receta}/delete", [RecetaController::class, "destroy"])->name("receta.delete");
+
+
+// perfil
+Route::get("/perfil/show/{perfil}", [PerfilController::class, "show"])->name("perfil.show");
+Route::get("/perfil/{perfil}/edit", [PerfilController::class, "edit"])->name("perfil.edit");
+
+Route::put("/perfil/{perfil}/update", [PerfilController::class, "update"])->name("perfil.update");
+
 
 Auth::routes();
 

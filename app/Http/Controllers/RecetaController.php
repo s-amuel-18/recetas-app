@@ -180,8 +180,11 @@ class RecetaController extends Controller
     {
         $this->authorize("delete", $receta);
 
+
         $receta->delete();
 
-        return redirect()->route("receta.index");
+        return $receta;
+        // return redirect()->route("receta.index");
     }
 }
+

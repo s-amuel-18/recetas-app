@@ -3,7 +3,11 @@
 @section('botones')
     <div class="container mb-3 ">
         <a href="{{ route('receta.crear') }}" class="float-right btn btn-primary">Nueva Receta</a>
+        <a href="{{ route('perfil.show', ["perfil" => Auth::user()->id]) }}" class="float-right btn btn-success">Perfil</a>
+
     </div>
+
+
 @endsection
 
 @section('content')
@@ -46,14 +50,17 @@
                                 <i class="fas fa-edit"></i>
                             </a>
 
-                            <form onsubmit="return confirm('¿Realmente desea eliminar esta receta?')" action="{{ route('receta.delete', ['receta' => $receta->id]) }}" method="POST" class="d-inline">
+                            {{-- forma de eliminar 1 --}}
+                            {{-- <form onsubmit="return confirm('¿Realmente desea eliminar esta receta?')" action="{{ route('receta.delete', ['receta' => $receta->id]) }}" method="POST" class="d-inline">
                                 @csrf
                                 @method("delete")
 
                                 <button class="btn btn-danger btn-sm" type="submit">
                                     <i class="fas fa-trash"></i>
                                 </button>
-                            </form>
+                            </form> --}}
+
+                            <eliminar-receta receta_id="{{ $receta->id }}"></eliminar-receta>
 
 
 
